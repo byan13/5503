@@ -18,7 +18,7 @@ static struct kprobe kp = {
 // Called just before the probed instruction is executed
 static int handler_pre(struct kprob *p, struct pt_regs *regs) {
   if(current->pid == pid) {
-    printk(KERN_ALERT "Target process faults at %lx.\n", regs->si;)
+      printk(KERN_ALERT "Target process faults at %lx.\n", regs->si);
   }
   return 0;
 }
@@ -26,7 +26,7 @@ static int handler_pre(struct kprob *p, struct pt_regs *regs) {
 static int __init kprobe_init(void) {
   kp.pre_handler = handler_pre;
   
-  if(register_kprob(&kp) < 0) {
+  if(register_kprobe(&kp) < 0) {
     pr_err("register_kprobe failed.\n");
   }
   pr_info("Planted kprobe at %p\n", kp.addr);
@@ -34,7 +34,7 @@ static int __init kprobe_init(void) {
   return 0;
 }
 
-static void__exit kprobe_exit(void) {
+static void __exit kprobe_exit(void) {
   unregister_kprobe(&kp);
   pr_info("kprobe at %p unregistered\n", kp.addr);
 }
