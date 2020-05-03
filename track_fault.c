@@ -16,7 +16,7 @@ static struct kprobe kp = {
 };
 
 // Called just before the probed instruction is executed
-static int handler_pre(struct kprob *p, struct pt_regs *regs) {
+static int handler_pre(struct kprobe *p, struct pt_regs *regs) {
   if(current->pid == pid) {
       printk(KERN_ALERT "Target process faults at %lx.\n", regs->si);
   }
